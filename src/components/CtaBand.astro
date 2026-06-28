@@ -1,0 +1,39 @@
+---
+import { site } from '../data/site';
+interface Props {
+  title?: string;
+  text?: string;
+}
+const {
+  title = 'Ready to take your next step?',
+  text = 'Book a relaxed, no-pressure discovery call — or start free with the 14-day guide.',
+} = Astro.props;
+---
+<section class="cta-band on-dark" aria-labelledby="cta-h">
+  <div class="container cta-inner fade-up">
+    <div>
+      <h2 id="cta-h">{title}</h2>
+      <p>{text}</p>
+    </div>
+    <div class="btn-row">
+      <a class="btn btn-gold btn-lg btn-arrow" href={site.calendly} target="_blank" rel="noopener">Book a discovery call</a>
+      <a class="btn btn-outline-white btn-lg" href="/coaching/14-day-guide">Get the free guide</a>
+    </div>
+  </div>
+</section>
+
+<style>
+  .cta-band {
+    background:
+      radial-gradient(ellipse 60% 80% at 85% 10%, rgba(212,168,75,.16), transparent),
+      linear-gradient(160deg, var(--forest-2), var(--forest) 55%, #0e2018);
+    color: #fff; padding: var(--sp-xl) 0;
+  }
+  .cta-inner {
+    display: flex; align-items: center; justify-content: space-between;
+    gap: 36px; flex-wrap: wrap;
+  }
+  .cta-band h2 { color: #fff; max-width: 16ch; }
+  .cta-band p { color: rgba(255,255,255,.82); max-width: 46ch; margin-top: 8px; }
+  @media (max-width: 760px) { .cta-inner { flex-direction: column; align-items: flex-start; } }
+</style>

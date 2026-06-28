@@ -1,0 +1,46 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import PageHero from '../../components/PageHero.astro';
+import CtaBand from '../../components/CtaBand.astro';
+import { training } from '../../data/training';
+---
+<BaseLayout
+  title="Training Courses"
+  description="Practical workplace training across 11 topics — from communication and assertiveness to leadership, resilience and presentation skills. Online or in-person, UK-wide."
+  path="/training"
+>
+  <PageHero kicker="Training" title="Practical training that builds real skills." lede="Eleven tailored workshops for individuals and teams. Every course is hands-on, human, and designed so you can use what you learn straight away.">
+    <div class="btn-row" style="margin-top:24px">
+      <a class="btn btn-forest btn-arrow" href="/contact">Enquire about training</a>
+    </div>
+  </PageHero>
+
+  <section class="section">
+    <div class="container">
+      <div class="course-list">
+        {training.map((c) => (
+          <a href={`/training/${c.slug}`} class="card course-card fade-up">
+            <h3>{c.title}</h3>
+            <p>{c.short}</p>
+            <div class="course-meta">
+              <span>{c.duration}</span>
+            </div>
+            <span class="path-link btn-arrow">Learn more</span>
+          </a>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <CtaBand title="Want training tailored to your team?" text="Every workshop can be shaped around your people, sector and goals. Let’s design something that fits." />
+</BaseLayout>
+
+<style>
+  .course-list { display: grid; grid-template-columns: repeat(3,1fr); gap: 20px; }
+  .course-card { display: flex; flex-direction: column; }
+  .course-card p { color: var(--muted); flex-grow: 1; }
+  .course-meta { font-size: .76rem; color: var(--gold); font-weight: 600; margin: 12px 0 0; text-transform: uppercase; letter-spacing: .04em; }
+  .path-link { color: var(--gold); font-weight: 600; font-size: .88rem; display: inline-flex; gap: 6px; margin-top: 10px; }
+  @media (max-width: 940px) { .course-list { grid-template-columns: 1fr 1fr; } }
+  @media (max-width: 600px) { .course-list { grid-template-columns: 1fr; } }
+</style>

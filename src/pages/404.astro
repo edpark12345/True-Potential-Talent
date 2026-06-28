@@ -1,0 +1,16 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+---
+<BaseLayout title="Page not found" description="The page you’re looking for can’t be found." path="/404">
+  <section class="section text-center" style="padding:120px 0">
+    <div class="container">
+      <span class="kicker">404</span>
+      <h1 style="margin-bottom:16px">This page took a different path.</h1>
+      <p class="lede" style="margin:0 auto 28px">We couldn’t find the page you were looking for — but there’s plenty more to explore.</p>
+      <div class="btn-row" style="justify-content:center">
+        <a class="btn btn-forest btn-arrow" href="/">Back to home</a>
+        <a class="btn btn-outline" href="/training">Browse training</a>
+      </div>
+    </div>
+  </section>
+</BaseLayout>

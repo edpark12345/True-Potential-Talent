@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://true-potential-talent-xw17.vercel.app/sitemap.xml
