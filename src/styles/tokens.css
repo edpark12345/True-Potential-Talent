@@ -1,0 +1,47 @@
+/* ═══════════════════════════════════════════
+   DESIGN TOKENS — True Potential Training
+   Single source of truth for the brand system.
+═══════════════════════════════════════════ */
+:root {
+  /* Brand palette */
+  --ink:        #15211a;
+  --forest:     #1e4534;
+  --forest-2:   #2a5e47;
+  --fern:       #3d7a5c;
+  --sage:       #c8d9c2;
+  --sage-light: #e8f0e5;
+  --parchment:  #f3ecdd;
+  --cream:      #faf6ee;
+  --gold:       #a8761f;   /* AA-contrast on cream */
+  --gold-lt:    #d4a84b;
+  --white:      #ffffff;
+  --muted:      #56685d;   /* AA-contrast body-muted */
+  --border:     #d8e2d3;
+
+  /* Radii */
+  --r:     18px;
+  --r-lg:  28px;
+  --r-sm:  12px;
+
+  /* Layout */
+  --max: 1160px;
+
+  /* Shadows */
+  --sh:    0 8px 32px rgba(21,33,26,.10);
+  --sh-lg: 0 20px 56px rgba(21,33,26,.14);
+
+  /* Focus */
+  --focus: #1e4534;
+
+  /* Spacing scale */
+  --sp-xs:  12px;
+  --sp-sm:  20px;
+  --sp-md:  36px;
+  --sp-lg:  56px;
+  --sp-xl:  80px;
+
+  /* Motion */
+  --ease:   cubic-bezier(.22,.61,.36,1);
+  --t-fast: .15s;
+  --t-med:  .25s;
+}

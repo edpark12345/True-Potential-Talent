@@ -1,0 +1,272 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Logo from '../components/Logo.astro';
+import CtaBand from '../components/CtaBand.astro';
+import Faq from '../components/Faq.astro';
+import { site } from '../data/site';
+import { stats, testimonials, steps, credentials } from '../data/content';
+import { training } from '../data/training';
+
+const featured = training.slice(0, 6);
+---
+<BaseLayout
+  title="True Potential Training | Coaching & Development for Women and Teams"
+  description="Leadership coaching and practical workplace training for women and teams ready to grow with confidence. Founded by Lynne Robson — 20+ years' leadership experience."
+  path="/"
+>
+  <!-- HERO -->
+  <section class="hero" aria-labelledby="hero-h1">
+    <div class="container hero-grid">
+      <div class="hero-text">
+        <div class="eyebrow hero-eyebrow">Leadership coaching &amp; workplace training</div>
+        <h1 class="hero-h1" id="hero-h1">Empowering you<br />to take the<br /><em>next step.</em></h1>
+        <p class="lede hero-lede">Warm, practical coaching and training that helps women and teams grow with confidence, communicate with clarity, and lead with purpose.</p>
+        <div class="btn-row hero-actions">
+          <a class="btn btn-forest btn-lg btn-arrow" href="/coaching/14-day-guide">Start free — the 14-day guide</a>
+          <a class="btn btn-outline btn-lg" href={site.calendly} target="_blank" rel="noopener">Book a discovery call</a>
+        </div>
+        <div class="hero-trust">
+          {['20+ years’ leadership experience', 'Online & in-person delivery', 'Free guide, no obligation'].map((t) => (
+            <span class="trust-item">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><path d="M20 6L9 17l-5-5" /></svg>{t}
+            </span>
+          ))}
+        </div>
+      </div>
+
+      <div class="hero-visual">
+        <div class="hero-panel on-dark" aria-label="Why True Potential">
+          <div class="hero-panel-mark">
+            <Logo size={36} light />
+            <span>Why True Potential</span>
+          </div>
+          <h2>Practical tools.<br />Human support.<br />Lasting change.</h2>
+          <p>Work with Lynne to build confidence, resilience and skills you can use immediately — in real life and real workplaces.</p>
+          <div class="hero-panel-stats">
+            {stats.map((s) => (
+              <div class="hp-stat"><strong>{s.value}</strong><span>{s.label}</span></div>
+            ))}
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- TRUST STRIP -->
+  <div class="trust-strip">
+    <div class="container trust-strip-inner">
+      <span class="trust-strip-label">Trusted by professionals &amp; teams at</span>
+      <div class="trust-strip-logos">
+        {['Citizens Advice', 'Retail Leadership', 'Public Sector Teams', 'SMEs & Charities'].map((l) => (
+          <span class="trust-logo">{l}</span>
+        ))}
+      </div>
+    </div>
+  </div>
+
+  <!-- ABOUT TEASER -->
+  <section class="section" aria-labelledby="about-h">
+    <div class="container about-grid">
+      <div class="about-image-wrap fade-up">
+        <div class="about-photo"><Logo size={120} light /></div>
+        <div class="about-badge"><strong>20+</strong><span>Years</span></div>
+      </div>
+      <div class="fade-up">
+        <span class="kicker">Meet your coach</span>
+        <h2 id="about-h">Hi, I’m {site.founder}.</h2>
+        <p class="about-quote">“Everyone has more potential than they realise. My job is to help you find it — and use it.”</p>
+        <p class="lede">With over 20 years leading teams across eight countries, I now help women and teams grow with confidence, communicate clearly and lead with purpose — through coaching and practical, human training.</p>
+        <ul class="cred-list">
+          {credentials.map((c) => (
+            <li class="cred-item">
+              <span class="cred-check"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" aria-hidden="true"><path d="M20 6L9 17l-5-5" /></svg></span>
+              <span>{c}</span>
+            </li>
+          ))}
+        </ul>
+        <a class="btn btn-outline btn-arrow" href="/about">More about Lynne</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- PATHS -->
+  <section class="section-sm bg-parch" aria-labelledby="paths-h">
+    <div class="container">
+      <div class="section-head"><span class="kicker">Two ways to grow</span><h2 id="paths-h">Choose your path</h2></div>
+      <div class="paths-grid">
+        <a href="/coaching/8-week-course" class="card path-card fade-up">
+          <h3>Coaching</h3>
+          <p>One-to-one partnership focused on your confidence, clarity and personal goals — at your pace.</p>
+          <span class="path-link btn-arrow">Explore coaching</span>
+        </a>
+        <a href="/training" class="card path-card fade-up">
+          <h3>Training</h3>
+          <p>Practical, tailored workshops that build real skills for individuals and teams across 11 topics.</p>
+          <span class="path-link btn-arrow">Explore training</span>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- OFFERINGS / COURSES -->
+  <section class="section" aria-labelledby="offerings-h">
+    <div class="container">
+      <div class="section-head"><span class="kicker">Training courses</span><h2 id="offerings-h">Practical skills, built to last</h2></div>
+      <div class="courses-grid">
+        {featured.map((c) => (
+          <a href={`/training/${c.slug}`} class="card course-card fade-up">
+            <h3>{c.title}</h3>
+            <p>{c.short}</p>
+            <span class="path-link btn-arrow">Learn more</span>
+          </a>
+        ))}
+      </div>
+      <div class="text-center" style="margin-top:36px"><a class="btn btn-forest btn-arrow" href="/training">View all 11 courses</a></div>
+    </div>
+  </section>
+
+  <!-- HOW IT WORKS -->
+  <section class="section bg-sage" aria-labelledby="how-h">
+    <div class="container">
+      <div class="section-head"><span class="kicker">How it works</span><h2 id="how-h">Simple, supportive, effective</h2></div>
+      <div class="steps-grid">
+        {steps.map((s) => (
+          <div class="step fade-up">
+            <span class="step-n">{s.n}</span>
+            <h3>{s.title}</h3>
+            <p>{s.body}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- TESTIMONIALS -->
+  <section class="section" aria-labelledby="testimonials-h">
+    <div class="container">
+      <div class="section-head"><span class="kicker">Kind words</span><h2 id="testimonials-h">What clients say</h2></div>
+      <div class="testimonial-grid">
+        {testimonials.map((t) => (
+          <figure class="card testimonial fade-up">
+            <div class="stars" aria-label="5 out of 5 stars">★★★★★</div>
+            <blockquote>{t.quote}</blockquote>
+            <figcaption><strong>{t.name}</strong><span>{t.role}</span></figcaption>
+          </figure>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQ -->
+  <section class="section faq-section bg-parch" aria-labelledby="faq-h">
+    <div class="container">
+      <div class="section-head"><span class="kicker">Questions</span><h2 id="faq-h">Good to know</h2></div>
+      <Faq />
+    </div>
+  </section>
+
+  <CtaBand />
+</BaseLayout>
+
+<style>
+  /* HERO */
+  .hero {
+    position: relative; overflow: hidden; padding: var(--sp-md) 0 var(--sp-lg);
+    background:
+      radial-gradient(ellipse 50% 60% at 12% 88%, rgba(168,118,31,.07), transparent),
+      radial-gradient(ellipse 60% 70% at 95% 8%, rgba(200,217,194,.55), transparent),
+      var(--cream);
+  }
+  .hero-grid { display: grid; grid-template-columns: minmax(0,1.06fr) minmax(0,.94fr); gap: 56px; align-items: center; }
+  .hero-text { max-width: 580px; }
+  .hero-eyebrow { margin-bottom: 24px; }
+  .hero-h1 { margin-bottom: 20px; }
+  .hero-h1 em { color: var(--gold); font-weight: 500; }
+  .hero-lede { margin: 0 0 30px; max-width: 480px; }
+  .hero-trust { display: flex; flex-wrap: wrap; gap: 10px 20px; margin-top: 28px; padding-top: 24px; border-top: 1px solid var(--border); }
+  .trust-item { display: flex; align-items: center; gap: 7px; font-size: .8rem; color: var(--muted); font-weight: 500; }
+  .trust-item svg { width: 15px; height: 15px; color: var(--gold); flex-shrink: 0; }
+
+  .hero-visual { position: relative; }
+  .hero-visual::before {
+    content: ''; position: absolute; z-index: 0; right: -22px; top: -22px; width: 60%; height: 58%;
+    border-radius: var(--r-lg); background: var(--sage-light); border: 1px solid var(--border);
+  }
+  .hero-panel {
+    position: relative; z-index: 1; border-radius: var(--r-lg);
+    background: linear-gradient(155deg, var(--forest-2), var(--forest) 55%, #0e2018);
+    color: #fff; padding: 30px 32px; box-shadow: 0 30px 70px rgba(15,30,22,.26); overflow: hidden;
+  }
+  .hero-panel::after {
+    content: ''; position: absolute; width: 240px; height: 240px; border-radius: 50%;
+    right: -90px; top: -90px; background: rgba(212,168,75,.1); pointer-events: none;
+  }
+  .hero-panel-mark { display: flex; align-items: center; gap: 10px; margin-bottom: 18px; position: relative; z-index: 1; }
+  .hero-panel-mark span { font-size: .72rem; letter-spacing: .16em; text-transform: uppercase; color: var(--gold-lt); font-weight: 600; }
+  .hero-panel h2 { color: #fff; font-size: 1.75rem; line-height: 1.18; margin-bottom: 12px; position: relative; z-index: 1; }
+  .hero-panel > p { color: rgba(255,255,255,.78); font-size: .88rem; line-height: 1.55; margin-bottom: 22px; position: relative; z-index: 1; max-width: none; }
+  .hero-panel-stats { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; position: relative; z-index: 1; }
+  .hp-stat { background: rgba(255,255,255,.07); border: 1px solid rgba(255,255,255,.12); border-radius: 14px; padding: 16px; }
+  .hp-stat strong { display: block; font-family: 'Cormorant Garamond', serif; font-size: 1.9rem; font-weight: 500; color: var(--gold-lt); line-height: 1; }
+  .hp-stat span { display: block; font-size: .72rem; color: rgba(255,255,255,.74); margin-top: 5px; line-height: 1.35; }
+
+  /* TRUST STRIP */
+  .trust-strip { background: var(--white); border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); }
+  .trust-strip-inner { display: flex; align-items: center; justify-content: center; flex-wrap: wrap; gap: 14px 40px; padding: 26px 0; }
+  .trust-strip-label { font-size: .72rem; letter-spacing: .16em; text-transform: uppercase; color: var(--muted); font-weight: 600; }
+  .trust-strip-logos { display: flex; align-items: center; flex-wrap: wrap; gap: 14px 36px; }
+  .trust-logo { font-family: 'Cormorant Garamond', serif; font-size: 1.25rem; font-weight: 600; color: var(--forest); opacity: .65; }
+
+  /* ABOUT */
+  .about-grid { display: grid; grid-template-columns: minmax(0,1fr) minmax(0,1.2fr); gap: 60px; align-items: center; }
+  .about-image-wrap { position: relative; }
+  .about-photo {
+    border-radius: var(--r-lg); aspect-ratio: 3/4; overflow: hidden; box-shadow: var(--sh);
+    background: linear-gradient(160deg, var(--forest-2), #0e2018); display: grid; place-items: center;
+  }
+  .about-badge {
+    position: absolute; bottom: -16px; right: -16px; width: 110px; height: 110px; border-radius: 50%;
+    background: var(--gold); display: grid; place-items: center; text-align: center;
+    box-shadow: 0 12px 32px rgba(168,118,31,.3); padding: 14px;
+  }
+  .about-badge strong { font-family: 'Cormorant Garamond', serif; font-size: 1.7rem; font-weight: 500; color: #fff; line-height: 1; }
+  .about-badge span { font-size: .58rem; letter-spacing: .08em; text-transform: uppercase; color: rgba(255,255,255,.9); display: block; margin-top: 2px; }
+  .about-quote {
+    font-family: 'Cormorant Garamond', serif; font-size: clamp(1.3rem, 2.5vw, 1.85rem); font-style: italic;
+    color: var(--forest); line-height: 1.4; margin: 18px 0 20px; padding-left: 20px; border-left: 2.5px solid var(--gold); max-width: none;
+  }
+  .cred-list { display: grid; gap: 10px; margin: 20px 0 24px; }
+  .cred-item { display: flex; gap: 12px; align-items: flex-start; }
+  .cred-check { width: 24px; height: 24px; border-radius: 50%; background: var(--sage-light); border: 1px solid var(--border); display: grid; place-items: center; flex-shrink: 0; margin-top: 1px; }
+  .cred-check svg { width: 11px; height: 11px; color: var(--forest); }
+
+  /* PATHS / CARDS shared link */
+  .path-link { color: var(--gold); font-weight: 600; font-size: .88rem; display: inline-flex; gap: 6px; margin-top: 14px; }
+  .path-card h3, .course-card h3 { margin-bottom: 8px; }
+  .path-card p, .course-card p { color: var(--muted); }
+  .paths-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+  .courses-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
+
+  /* STEPS */
+  .steps-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; }
+  .step { padding: 8px; }
+  .step-n { font-family: 'Cormorant Garamond', serif; font-size: 2.4rem; color: var(--gold); font-weight: 500; display: block; margin-bottom: 6px; }
+  .step p { color: var(--muted); }
+
+  /* TESTIMONIALS */
+  .testimonial-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
+  .testimonial { display: flex; flex-direction: column; gap: 12px; }
+  .stars { color: var(--gold-lt); letter-spacing: 2px; }
+  .testimonial blockquote { font-family: 'Cormorant Garamond', serif; font-size: 1.2rem; font-style: italic; color: var(--ink); line-height: 1.45; }
+  .testimonial figcaption strong { display: block; color: var(--forest); }
+  .testimonial figcaption span { font-size: .82rem; color: var(--muted); }
+
+  @media (max-width: 940px) {
+    .hero-grid { grid-template-columns: 1fr; gap: 36px; }
+    .about-grid { grid-template-columns: 1fr; gap: 40px; }
+    .courses-grid, .steps-grid, .testimonial-grid { grid-template-columns: 1fr 1fr; }
+  }
+  @media (max-width: 620px) {
+    .paths-grid, .courses-grid, .steps-grid, .testimonial-grid { grid-template-columns: 1fr; }
+  }
+</style>

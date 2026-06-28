@@ -1,0 +1,42 @@
+---
+import { faqs } from '../data/content';
+interface Props { items?: { q: string; a: string }[]; }
+const { items = faqs } = Astro.props;
+---
+<div class="faq-list">
+  {items.map((f) => (
+    <div class="faq-item fade-up">
+      <button class="faq-q" data-faq aria-expanded="false">
+        <span>{f.q}</span>
+        <span class="faq-icon" aria-hidden="true"></span>
+      </button>
+      <div class="faq-a"><p>{f.a}</p></div>
+    </div>
+  ))}
+</div>
+
+<style>
+  .faq-list { max-width: 760px; margin: 0 auto; display: grid; gap: 12px; }
+  .faq-item {
+    background: var(--white); border: 1px solid var(--border);
+    border-radius: var(--r); overflow: hidden; transition: border-color var(--t-med), box-shadow var(--t-med);
+  }
+  .faq-item.open { border-color: var(--sage); box-shadow: var(--sh); }
+  .faq-q {
+    width: 100%; display: flex; align-items: center; justify-content: space-between; gap: 16px;
+    padding: 20px 24px; text-align: left; font-weight: 600; color: var(--forest); font-size: 1.02rem;
+  }
+  .faq-icon { position: relative; width: 16px; height: 16px; flex-shrink: 0; }
+  .faq-icon::before, .faq-icon::after {
+    content: ''; position: absolute; background: var(--gold); border-radius: 2px;
+    top: 50%; left: 50%; transform: translate(-50%,-50%); transition: transform var(--t-med);
+  }
+  .faq-icon::before { width: 14px; height: 2px; }
+  .faq-icon::after  { width: 2px; height: 14px; }
+  .faq-item.open .faq-icon::after { transform: translate(-50%,-50%) scaleY(0); }
+  .faq-a {
+    max-height: 0; overflow: hidden; transition: max-height var(--t-med) var(--ease);
+  }
+  .faq-item.open .faq-a { max-height: 320px; }
+  .faq-a p { padding: 0 24px 22px; color: var(--muted); max-width: none; }
+</style>

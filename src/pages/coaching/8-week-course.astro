@@ -1,0 +1,73 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import PageHero from '../../components/PageHero.astro';
+import CtaBand from '../../components/CtaBand.astro';
+
+const weeks = [
+  { n: 1, t: 'Foundations & goals', d: 'Get clear on where you are, where you want to be, and what’s been holding you back.' },
+  { n: 2, t: 'Confidence & self-belief', d: 'Understand and quieten your inner critic; build genuine, grounded confidence.' },
+  { n: 3, t: 'Communicating with clarity', d: 'Say what you mean and be heard — in meetings, emails and difficult moments.' },
+  { n: 4, t: 'Boundaries & assertiveness', d: 'Learn to say no, protect your energy, and stand your ground with warmth.' },
+  { n: 5, t: 'Resilience under pressure', d: 'Practical habits to stay steady, recover from setbacks and manage stress.' },
+  { n: 6, t: 'Influence & presence', d: 'Develop the presence and personal impact that gets you taken seriously.' },
+  { n: 7, t: 'Leading yourself & others', d: 'Step into leadership — of your work, your goals, and your team.' },
+  { n: 8, t: 'Your next chapter', d: 'Consolidate your growth and build a clear plan to keep moving forward.' },
+];
+---
+<BaseLayout
+  title="8-Week Coaching Programme"
+  description="A transformational 8-week 1:1 coaching programme to build confidence, communication, resilience and leadership — at your pace, with warm, practical support."
+  path="/coaching/8-week-course"
+>
+  <PageHero kicker="Coaching programme" title="The 8-Week Coaching Programme" lede="A structured, supportive journey from where you are to where you want to be — eight weekly one-to-one sessions built entirely around you.">
+    <div class="btn-row" style="margin-top:24px">
+      <a class="btn btn-forest btn-arrow" href="/contact">Apply or ask a question</a>
+      <a class="btn btn-outline" href="/coaching/14-day-guide">Try the free guide first</a>
+    </div>
+  </PageHero>
+
+  <section class="section">
+    <div class="container">
+      <div class="section-head"><span class="kicker">The journey</span><h2>Eight weeks, eight steps forward</h2></div>
+      <div class="weeks-grid">
+        {weeks.map((w) => (
+          <div class="card week-card fade-up">
+            <span class="week-n">Week {w.n}</span>
+            <h3>{w.t}</h3>
+            <p>{w.d}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="section-sm bg-parch">
+    <div class="container incl-grid">
+      <div class="fade-up">
+        <span class="kicker">What’s included</span>
+        <h2>Everything you need to grow</h2>
+      </div>
+      <ul class="incl-list fade-up">
+        {['Eight weekly 1:1 coaching sessions','Tailored exercises between sessions','Email support throughout','Practical tools you keep for life','A clear, personalised growth plan'].map((i) => (
+          <li><span class="cred-check"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" aria-hidden="true"><path d="M20 6L9 17l-5-5" /></svg></span>{i}</li>
+        ))}
+      </ul>
+    </div>
+  </section>
+
+  <CtaBand title="Ready to begin your eight weeks?" text="Book a discovery call to check it’s the right fit — no obligation, just a conversation." />
+</BaseLayout>
+
+<style>
+  .weeks-grid { display: grid; grid-template-columns: repeat(4,1fr); gap: 18px; }
+  .week-card p { color: var(--muted); font-size: .9rem; }
+  .week-n { font-size: .72rem; letter-spacing: .12em; text-transform: uppercase; color: var(--gold); font-weight: 700; display: block; margin-bottom: 6px; }
+  .incl-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 40px; align-items: center; }
+  .incl-list { display: grid; gap: 14px; }
+  .incl-list li { display: flex; gap: 12px; align-items: center; }
+  .cred-check { width: 24px; height: 24px; border-radius: 50%; background: var(--sage-light); border: 1px solid var(--border); display: grid; place-items: center; flex-shrink: 0; }
+  .cred-check svg { width: 11px; height: 11px; color: var(--forest); }
+  @media (max-width: 940px) { .weeks-grid { grid-template-columns: 1fr 1fr; } }
+  @media (max-width: 700px) { .incl-grid { grid-template-columns: 1fr; gap: 24px; } }
+  @media (max-width: 520px) { .weeks-grid { grid-template-columns: 1fr; } }
+</style>

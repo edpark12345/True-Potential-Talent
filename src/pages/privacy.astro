@@ -1,0 +1,47 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import PageHero from '../components/PageHero.astro';
+import { site } from '../data/site';
+const updated = 'June 2026';
+---
+<BaseLayout
+  title="Privacy Policy"
+  description="How True Potential Training collects, uses and protects your personal information."
+  path="/privacy"
+>
+  <PageHero kicker="Legal" title="Privacy Policy" lede={`Last updated ${updated}. We take your privacy seriously and only use your information to help you.`} />
+
+  <section class="section">
+    <div class="container prose">
+      <h2>Who we are</h2>
+      <p>{site.name} (“we”, “us”) provides coaching and training services. For any privacy questions, contact <a href={`mailto:${site.email}`}>{site.email}</a>.</p>
+
+      <h2>What we collect</h2>
+      <p>We only collect information you give us directly — such as your name and email when you contact us, book a call, or sign up for the free 14-day guide. We do not sell your data to anyone.</p>
+
+      <h2>How we use it</h2>
+      <ul>
+        <li>To respond to your enquiries and deliver the services you request</li>
+        <li>To send the free guide and related emails you’ve opted into</li>
+        <li>To improve our services</li>
+      </ul>
+
+      <h2>Email &amp; marketing</h2>
+      <p>If you sign up for the guide or updates, you can unsubscribe at any time using the link in any email. We will never share your address.</p>
+
+      <h2>Your rights</h2>
+      <p>You have the right to access, correct or delete the personal data we hold about you. Just email us and we’ll help.</p>
+
+      <h2>Cookies</h2>
+      <p>This site uses only essential functionality and does not set advertising or tracking cookies.</p>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .prose { max-width: 720px; }
+  .prose h2 { font-size: 1.5rem; margin: 32px 0 10px; }
+  .prose p, .prose li { color: var(--muted); }
+  .prose ul { display: grid; gap: 8px; margin: 8px 0 0 18px; list-style: disc; }
+  .prose a { color: var(--gold); text-decoration: underline; }
+</style>

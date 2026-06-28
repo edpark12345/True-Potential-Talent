@@ -1,0 +1,93 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import PageHero from '../../components/PageHero.astro';
+import CtaBand from '../../components/CtaBand.astro';
+import { training } from '../../data/training';
+
+export function getStaticPaths() {
+  return training.map((course) => ({
+    params: { slug: course.slug },
+    props: { course },
+  }));
+}
+
+const { course } = Astro.props;
+const others = training.filter((c) => c.slug !== course.slug).slice(0, 3);
+---
+<BaseLayout
+  title={`${course.title} Training`}
+  description={course.summary}
+  path={`/training/${course.slug}`}
+>
+  <PageHero kicker="Training course" title={course.title} lede={course.short}>
+    <div class="btn-row" style="margin-top:24px">
+      <a class="btn btn-forest btn-arrow" href="/contact">Enquire about this course</a>
+      <a class="btn btn-outline" href="/training">All courses</a>
+    </div>
+  </PageHero>
+
+  <section class="section">
+    <div class="container course-layout">
+      <div class="course-main fade-up">
+        <h2>About this workshop</h2>
+        <p class="lede">{course.summary}</p>
+
+        <h3 style="margin-top:32px">What you’ll take away</h3>
+        <ul class="outcome-list">
+          {course.outcomes.map((o) => (
+            <li>
+              <span class="cred-check"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" aria-hidden="true"><path d="M20 6L9 17l-5-5" /></svg></span>
+              <span>{o}</span>
+            </li>
+          ))}
+        </ul>
+      </div>
+
+      <aside class="course-side fade-up">
+        <div class="card side-card">
+          <h4>Course details</h4>
+          <dl>
+            <dt>Who it’s for</dt><dd>{course.who}</dd>
+            <dt>Duration</dt><dd>{course.duration}</dd>
+            <dt>Format</dt><dd>{course.format}</dd>
+          </dl>
+          <a class="btn btn-forest btn-arrow" href="/contact" style="width:100%;justify-content:center;margin-top:8px">Enquire now</a>
+        </div>
+      </aside>
+    </div>
+  </section>
+
+  <section class="section-sm bg-parch">
+    <div class="container">
+      <div class="section-head left"><span class="kicker">Keep exploring</span><h2>Related courses</h2></div>
+      <div class="related-grid">
+        {others.map((c) => (
+          <a href={`/training/${c.slug}`} class="card fade-up">
+            <h3>{c.title}</h3>
+            <p>{c.short}</p>
+            <span class="path-link btn-arrow">Learn more</span>
+          </a>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <CtaBand />
+</BaseLayout>
+
+<style>
+  .course-layout { display: grid; grid-template-columns: 1.7fr 1fr; gap: 48px; align-items: start; }
+  .course-main p, .course-main li { color: var(--muted); }
+  .outcome-list { display: grid; gap: 12px; margin-top: 16px; }
+  .outcome-list li { display: flex; gap: 12px; align-items: flex-start; }
+  .cred-check { width: 24px; height: 24px; border-radius: 50%; background: var(--sage-light); border: 1px solid var(--border); display: grid; place-items: center; flex-shrink: 0; margin-top: 2px; }
+  .cred-check svg { width: 11px; height: 11px; color: var(--forest); }
+  .side-card { position: sticky; top: 96px; }
+  .side-card dl { margin: 14px 0 18px; }
+  .side-card dt { font-size: .72rem; letter-spacing: .12em; text-transform: uppercase; color: var(--gold); font-weight: 700; margin-top: 14px; }
+  .side-card dd { color: var(--ink); font-size: .92rem; }
+  .related-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 20px; }
+  .related-grid p { color: var(--muted); }
+  .path-link { color: var(--gold); font-weight: 600; font-size: .88rem; display: inline-flex; gap: 6px; margin-top: 10px; }
+  @media (max-width: 880px) { .course-layout { grid-template-columns: 1fr; } .side-card { position: static; } .related-grid { grid-template-columns: 1fr; } }
+</style>

@@ -1,0 +1,110 @@
+---
+import '../styles/global.css';
+import SEO from '../components/SEO.astro';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+import { site } from '../data/site';
+
+interface Props {
+  title: string;
+  description: string;
+  path?: string;
+}
+const { title, description, path = Astro.url.pathname } = Astro.props;
+---
+<!doctype html>
+<html lang="en">
+  <head>
+    <SEO title={title} description={description} path={path} />
+  </head>
+  <body>
+    <a href="#main" class="skip-link">Skip to content</a>
+
+    <div class="topbar">
+      <div class="container">
+        <strong>10% of profits</strong> support women rebuilding their lives after domestic abuse.
+      </div>
+    </div>
+
+    <Header path={path} />
+
+    <main id="main">
+      <slot />
+    </main>
+
+    <Footer />
+
+    <script>
+      // Sticky header shadow
+      const hdr = document.getElementById('site-header');
+      if (hdr) {
+        window.addEventListener('scroll', () => {
+          hdr.classList.toggle('scrolled', window.scrollY > 16);
+        }, { passive: true });
+      }
+
+      // Mobile nav
+      const toggle = document.querySelector('[data-nav-toggle]');
+      const nav = document.getElementById('primary-nav');
+      if (toggle && nav) {
+        toggle.addEventListener('click', () => {
+          const open = nav.classList.toggle('open');
+          toggle.setAttribute('aria-expanded', String(open));
+        });
+      }
+
+      // Dropdowns — click/keyboard accessible
+      const closeAll = () => {
+        document.querySelectorAll('[data-dropdown].open').forEach((m) => {
+          m.classList.remove('open');
+          m.parentElement?.querySelector('[data-dropdown-toggle]')?.setAttribute('aria-expanded', 'false');
+        });
+      };
+      document.querySelectorAll('[data-dropdown-toggle]').forEach((btn) => {
+        const menu = btn.parentElement?.querySelector('[data-dropdown]');
+        btn.addEventListener('click', (e) => {
+          e.stopPropagation();
+          const isOpen = menu?.classList.contains('open');
+          closeAll();
+          if (!isOpen && menu) {
+            menu.classList.add('open');
+            btn.setAttribute('aria-expanded', 'true');
+          }
+        });
+      });
+      document.addEventListener('click', closeAll);
+      document.addEventListener('keydown', (e) => { if (e.key === 'Escape') closeAll(); });
+
+      // FAQ accordion
+      document.querySelectorAll('[data-faq]').forEach((btn) => {
+        btn.addEventListener('click', () => {
+          const item = btn.closest('.faq-item');
+          const open = item?.classList.toggle('open');
+          btn.setAttribute('aria-expanded', String(!!open));
+        });
+      });
+
+      // Fade-up on scroll
+      const els = document.querySelectorAll('.fade-up');
+      if ('IntersectionObserver' in window) {
+        const io = new IntersectionObserver((entries) => {
+          entries.forEach((e) => {
+            if (e.isIntersecting) { e.target.classList.add('visible'); io.unobserve(e.target); }
+          });
+        }, { threshold: 0.1, rootMargin: '0px 0px -32px 0px' });
+        els.forEach((el) => io.observe(el));
+      } else {
+        els.forEach((el) => el.classList.add('visible'));
+      }
+    </script>
+  </body>
+</html>
+
+<style>
+  body { display: flex; flex-direction: column; min-height: 100vh; }
+  .topbar {
+    background: var(--forest); color: rgba(255,255,255,.85);
+    font-size: .78rem; letter-spacing: .03em; padding: 8px 0; text-align: center;
+  }
+  .topbar strong { color: var(--gold-lt); font-weight: 600; }
+</style>

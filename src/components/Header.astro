@@ -1,0 +1,150 @@
+---
+import Logo from './Logo.astro';
+import { site } from '../data/site';
+import { training } from '../data/training';
+
+const { path = '' } = Astro.props;
+const isActive = (href: string) => href === '/' ? path === '/' : path.startsWith(href);
+---
+<header class="site-header" id="site-header">
+  <div class="container header-inner">
+    <a href="/" class="brand" aria-label={`${site.name} — Home`}>
+      <span class="brand-logo"><Logo size={44} /></span>
+      <span>
+        <span class="brand-name">{site.name}</span>
+        <span class="brand-sub">{site.tagline}</span>
+      </span>
+    </a>
+
+    <button class="nav-toggle" data-nav-toggle aria-expanded="false" aria-controls="primary-nav">
+      <span class="sr-only">Toggle menu</span>
+      <span class="nav-toggle-bars" aria-hidden="true"></span>
+    </button>
+
+    <nav class="primary-nav" id="primary-nav" aria-label="Primary navigation">
+      <a class:list={['nav-link', { active: isActive('/') && path === '/' }]} href="/" aria-current={path === '/' ? 'page' : undefined}>Home</a>
+      <a class:list={['nav-link', { active: isActive('/about') }]} href="/about">About</a>
+
+      <div class="nav-dropdown">
+        <button class="nav-dropdown-toggle" data-dropdown-toggle aria-expanded="false" aria-haspopup="true">Coaching</button>
+        <div class="dropdown-menu" data-dropdown>
+          <a href="/coaching/8-week-course">8-Week Coaching Programme</a>
+          <a href="/coaching/individual-coaching-sessions">Individual Coaching Sessions</a>
+          <a href="/coaching/14-day-guide">Free 14-Day Guide</a>
+        </div>
+      </div>
+
+      <div class="nav-dropdown">
+        <button class="nav-dropdown-toggle" data-dropdown-toggle aria-expanded="false" aria-haspopup="true">Training</button>
+        <div class="dropdown-menu wide" data-dropdown>
+          {training.map((c) => <a href={`/training/${c.slug}`}>{c.title}</a>)}
+        </div>
+      </div>
+
+      <a class:list={['nav-link', { active: isActive('/contact') }]} href="/contact">Contact</a>
+
+      <div class="header-cta">
+        <a class="btn btn-forest btn-sm btn-arrow" href="/coaching/14-day-guide">Free guide</a>
+      </div>
+    </nav>
+  </div>
+</header>
+
+<style>
+  .site-header {
+    position: sticky; top: 0; z-index: 200;
+    background: rgba(250,246,238,.94);
+    backdrop-filter: blur(18px);
+    border-bottom: 1px solid rgba(30,69,52,.08);
+    transition: box-shadow var(--t-med);
+  }
+  .site-header.scrolled { box-shadow: 0 2px 24px rgba(21,33,26,.08); }
+  .header-inner {
+    display: flex; align-items: center; justify-content: space-between;
+    gap: 16px; height: 72px;
+  }
+  .brand { display: flex; align-items: center; gap: 11px; flex-shrink: 0; }
+  .brand-name {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.12rem; font-weight: 600; color: var(--forest); line-height: 1.1; display: block;
+  }
+  .brand-sub {
+    font-size: .63rem; letter-spacing: .13em; text-transform: uppercase;
+    color: var(--muted); font-weight: 500; display: block;
+  }
+  .primary-nav { display: flex; align-items: center; gap: 2px; }
+  .nav-link, .nav-dropdown-toggle {
+    padding: 8px 12px; border-radius: 999px;
+    font-size: .86rem; font-weight: 500; color: #344b41;
+    transition: background var(--t-fast), color var(--t-fast); white-space: nowrap;
+  }
+  .nav-link:hover, .nav-link.active,
+  .nav-dropdown:hover .nav-dropdown-toggle,
+  .nav-dropdown-toggle[aria-expanded="true"] { background: var(--sage-light); color: var(--forest); }
+
+  .nav-dropdown { position: relative; }
+  .nav-dropdown-toggle { display: flex; align-items: center; gap: 5px; }
+  .nav-dropdown-toggle::after {
+    content: ''; width: 5px; height: 5px;
+    border-right: 1.5px solid currentColor; border-bottom: 1.5px solid currentColor;
+    transform: rotate(45deg); margin-top: -2px; transition: transform var(--t-med);
+  }
+  .nav-dropdown-toggle[aria-expanded="true"]::after { transform: rotate(225deg); margin-top: 2px; }
+
+  .dropdown-menu {
+    position: absolute; top: calc(100% + 6px); left: 0;
+    background: var(--white); border: 1px solid var(--border);
+    border-radius: var(--r); box-shadow: var(--sh-lg);
+    padding: 6px; min-width: 240px;
+    opacity: 0; visibility: hidden; transform: translateY(5px);
+    transition: opacity var(--t-fast), transform var(--t-fast), visibility var(--t-fast); z-index: 300;
+  }
+  .dropdown-menu.wide { min-width: 520px; left: auto; right: 0; display: grid; grid-template-columns: 1fr 1fr; gap: 2px; }
+  .nav-dropdown:hover .dropdown-menu, .dropdown-menu.open { opacity: 1; visibility: visible; transform: none; }
+  .dropdown-menu a {
+    display: block; padding: 8px 12px; border-radius: 10px;
+    font-size: .84rem; font-weight: 500; color: #344b41;
+    transition: background var(--t-fast), color var(--t-fast);
+  }
+  .dropdown-menu a:hover { background: var(--sage-light); color: var(--forest); }
+  .header-cta { margin-left: 6px; }
+
+  .nav-toggle {
+    display: none; width: 42px; height: 42px; border-radius: 50%;
+    background: var(--forest); place-items: center;
+  }
+  .nav-toggle-bars, .nav-toggle-bars::before, .nav-toggle-bars::after {
+    content: ''; display: block; width: 16px; height: 2px; background: #fff; border-radius: 2px;
+    transition: transform var(--t-med), opacity var(--t-fast);
+  }
+  .nav-toggle-bars::before { transform: translateY(-5px); }
+  .nav-toggle-bars::after  { transform: translateY(3px); }
+  .nav-toggle[aria-expanded="true"] .nav-toggle-bars { background: transparent; }
+  .nav-toggle[aria-expanded="true"] .nav-toggle-bars::before { transform: rotate(45deg); }
+  .nav-toggle[aria-expanded="true"] .nav-toggle-bars::after  { transform: rotate(-45deg); }
+
+  @media (max-width: 940px) {
+    .nav-toggle { display: grid; }
+    .primary-nav {
+      position: fixed; inset: 72px 0 auto 0;
+      flex-direction: column; align-items: stretch; gap: 2px;
+      background: var(--cream); border-bottom: 1px solid var(--border);
+      padding: 16px 22px 24px; box-shadow: var(--sh-lg);
+      max-height: 0; overflow: hidden; padding-top: 0; padding-bottom: 0;
+      transition: max-height var(--t-med) var(--ease), padding var(--t-med);
+    }
+    .primary-nav.open { max-height: 90vh; overflow-y: auto; padding-top: 16px; padding-bottom: 24px; }
+    .nav-link, .nav-dropdown-toggle { width: 100%; }
+    .nav-dropdown { width: 100%; }
+    .dropdown-menu, .dropdown-menu.wide {
+      position: static; opacity: 1; visibility: visible; transform: none;
+      box-shadow: none; border: none; background: transparent;
+      max-height: 0; overflow: hidden; padding: 0; min-width: 0; display: block;
+      transition: max-height var(--t-med) var(--ease);
+    }
+    .dropdown-menu.open { max-height: 600px; padding: 4px 0 8px 12px; }
+    .dropdown-menu.wide.open { display: block; }
+    .header-cta { margin: 8px 0 0; }
+    .header-cta .btn { width: 100%; justify-content: center; }
+  }
+</style>

@@ -1,0 +1,86 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import PageHero from '../components/PageHero.astro';
+import Logo from '../components/Logo.astro';
+import CtaBand from '../components/CtaBand.astro';
+import { site } from '../data/site';
+import { stats, credentials } from '../data/content';
+---
+<BaseLayout
+  title="About Lynne Robson"
+  description="Meet Lynne Robson, founder of True Potential Training — 20+ years of leadership across eight countries, now coaching women and teams to grow with confidence."
+  path="/about"
+>
+  <PageHero kicker="About" title="Coaching grounded in real leadership." lede="I’m Lynne Robson. After two decades leading teams across eight countries, I founded True Potential Training to help women and teams grow with confidence, clarity and purpose." />
+
+  <section class="section">
+    <div class="container about-grid">
+      <div class="about-image-wrap fade-up">
+        <div class="about-photo"><Logo size={130} light /></div>
+        <div class="about-badge"><strong>8</strong><span>Countries</span></div>
+      </div>
+      <div class="fade-up">
+        <span class="kicker">My story</span>
+        <h2>Practical, human, and on your side.</h2>
+        <p class="lede">I’ve sat in the rooms where decisions get made, led teams through change, and learned — often the hard way — what genuinely helps people grow. My approach is warm and down-to-earth, but always practical: you’ll leave every session with something you can use straight away.</p>
+        <p style="margin-top:16px;color:var(--muted)">I work with women finding their voice, new managers stepping up, and teams who want to communicate and lead better together. Whatever your starting point, you’re welcome here.</p>
+        <ul class="cred-list">
+          {credentials.map((c) => (
+            <li class="cred-item">
+              <span class="cred-check"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" aria-hidden="true"><path d="M20 6L9 17l-5-5" /></svg></span>
+              <span>{c}</span>
+            </li>
+          ))}
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section class="section-sm bg-parch">
+    <div class="container">
+      <div class="stat-row">
+        {stats.map((s) => (
+          <div class="stat-block fade-up"><strong>{s.value}</strong><span>{s.label}</span></div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container values-wrap">
+      <div class="section-head"><span class="kicker">What I believe</span><h2>Values that shape the work</h2></div>
+      <div class="values-grid">
+        {[
+          { t: 'Everyone has potential', d: 'My role is to help you uncover it and put it to work — not to hand you someone else’s playbook.' },
+          { t: 'Practical over theoretical', d: 'Tools you can use the next day beat frameworks you forget by Friday.' },
+          { t: 'Warmth with honesty', d: 'Real growth needs both genuine support and honest, kind challenge.' },
+          { t: 'Giving back', d: '10% of profits support women rebuilding their lives after domestic abuse.' },
+        ].map((v) => (
+          <div class="card fade-up"><h3>{v.t}</h3><p>{v.d}</p></div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <CtaBand title="Let’s have a conversation." text="Book a relaxed discovery call and let’s talk about where you want to grow." />
+</BaseLayout>
+
+<style>
+  .about-grid { display: grid; grid-template-columns: minmax(0,1fr) minmax(0,1.2fr); gap: 60px; align-items: center; }
+  .about-image-wrap { position: relative; }
+  .about-photo { border-radius: var(--r-lg); aspect-ratio: 3/4; overflow: hidden; box-shadow: var(--sh); background: linear-gradient(160deg, var(--forest-2), #0e2018); display: grid; place-items: center; }
+  .about-badge { position: absolute; bottom: -16px; right: -16px; width: 110px; height: 110px; border-radius: 50%; background: var(--gold); display: grid; place-items: center; text-align: center; box-shadow: 0 12px 32px rgba(168,118,31,.3); padding: 14px; }
+  .about-badge strong { font-family: 'Cormorant Garamond', serif; font-size: 1.7rem; color: #fff; line-height: 1; }
+  .about-badge span { font-size: .58rem; letter-spacing: .08em; text-transform: uppercase; color: rgba(255,255,255,.9); display: block; margin-top: 2px; }
+  .cred-list { display: grid; gap: 10px; margin: 22px 0 0; }
+  .cred-item { display: flex; gap: 12px; align-items: flex-start; }
+  .cred-check { width: 24px; height: 24px; border-radius: 50%; background: var(--sage-light); border: 1px solid var(--border); display: grid; place-items: center; flex-shrink: 0; margin-top: 1px; }
+  .cred-check svg { width: 11px; height: 11px; color: var(--forest); }
+  .stat-row { display: grid; grid-template-columns: repeat(4,1fr); gap: 24px; text-align: center; }
+  .stat-block strong { font-family: 'Cormorant Garamond', serif; font-size: 2.8rem; color: var(--gold); display: block; line-height: 1; }
+  .stat-block span { font-size: .8rem; color: var(--muted); display: block; margin-top: 6px; }
+  .values-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+  .values-grid p { color: var(--muted); }
+  @media (max-width: 940px) { .about-grid { grid-template-columns: 1fr; gap: 40px; } .stat-row { grid-template-columns: 1fr 1fr; } }
+  @media (max-width: 600px) { .values-grid { grid-template-columns: 1fr; } }
+</style>
