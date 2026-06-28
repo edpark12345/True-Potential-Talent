@@ -1,7 +1,6 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
 import PageHero from '../components/PageHero.astro';
-import Logo from '../components/Logo.astro';
 import CtaBand from '../components/CtaBand.astro';
 import { site } from '../data/site';
 import { stats, credentials } from '../data/content';
@@ -16,7 +15,7 @@ import { stats, credentials } from '../data/content';
   <section class="section">
     <div class="container about-grid">
       <div class="about-image-wrap fade-up">
-        <div class="about-photo"><Logo size={130} light /></div>
+        <div class="about-photo"><img src="/lynne-full.jpg" alt="Lynne Robson, founder of True Potential Training" width="800" height="800" loading="lazy" /></div>
         <div class="about-badge"><strong>8</strong><span>Countries</span></div>
       </div>
       <div class="fade-up">
@@ -69,6 +68,7 @@ import { stats, credentials } from '../data/content';
   .about-grid { display: grid; grid-template-columns: minmax(0,1fr) minmax(0,1.2fr); gap: 60px; align-items: center; }
   .about-image-wrap { position: relative; }
   .about-photo { border-radius: var(--r-lg); aspect-ratio: 3/4; overflow: hidden; box-shadow: var(--sh); background: linear-gradient(160deg, var(--forest-2), #0e2018); display: grid; place-items: center; }
+  .about-photo img { width: 100%; height: 100%; object-fit: cover; object-position: 50% 35%; }
   .about-badge { position: absolute; bottom: -16px; right: -16px; width: 110px; height: 110px; border-radius: 50%; background: var(--gold); display: grid; place-items: center; text-align: center; box-shadow: 0 12px 32px rgba(168,118,31,.3); padding: 14px; }
   .about-badge strong { font-family: 'Cormorant Garamond', serif; font-size: 1.7rem; color: #fff; line-height: 1; }
   .about-badge span { font-size: .58rem; letter-spacing: .08em; text-transform: uppercase; color: rgba(255,255,255,.9); display: block; margin-top: 2px; }
