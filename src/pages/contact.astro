@@ -38,13 +38,13 @@ const FORM_ENDPOINT = 'https://formspree.io/f/your-form-id';
       <form class="contact-form card fade-up" id="contact-form" novalidate data-endpoint={FORM_ENDPOINT}>
         <div class="field">
           <label for="name">Name</label>
-          <input id="name" name="name" type="text" autocomplete="name" required />
-          <span class="error" data-error-for="name"></span>
+          <input id="name" name="name" type="text" autocomplete="name" required aria-describedby="err-name" />
+          <span class="error" id="err-name" data-error-for="name"></span>
         </div>
         <div class="field">
           <label for="email">Email</label>
-          <input id="email" name="email" type="email" autocomplete="email" required />
-          <span class="error" data-error-for="email"></span>
+          <input id="email" name="email" type="email" autocomplete="email" required aria-describedby="err-email" />
+          <span class="error" id="err-email" data-error-for="email"></span>
         </div>
         <div class="field">
           <label for="topic">I’m interested in</label>
@@ -57,8 +57,8 @@ const FORM_ENDPOINT = 'https://formspree.io/f/your-form-id';
         </div>
         <div class="field">
           <label for="message">Message</label>
-          <textarea id="message" name="message" rows="5" required></textarea>
-          <span class="error" data-error-for="message"></span>
+          <textarea id="message" name="message" rows="5" required aria-describedby="err-message"></textarea>
+          <span class="error" id="err-message" data-error-for="message"></span>
         </div>
         <button type="submit" class="btn btn-forest btn-lg btn-arrow" data-submit>Send message</button>
         <p class="form-status" data-status role="status" aria-live="polite"></p>
@@ -77,8 +77,12 @@ const FORM_ENDPOINT = 'https://formspree.io/f/your-form-id';
     const showError = (name: string, msg: string) => {
       const el = form.querySelector(`[data-error-for="${name}"]`);
       if (el) el.textContent = msg;
+      form.querySelector(`[name="${name}"]`)?.setAttribute('aria-invalid', 'true');
     };
-    const clearErrors = () => form.querySelectorAll('.error').forEach((e) => (e.textContent = ''));
+    const clearErrors = () => {
+      form.querySelectorAll('.error').forEach((e) => (e.textContent = ''));
+      form.querySelectorAll('[aria-invalid]').forEach((el) => el.removeAttribute('aria-invalid'));
+    };
 
     const validate = () => {
       clearErrors();

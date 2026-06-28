@@ -1,6 +1,7 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
 import Logo from '../components/Logo.astro';
+import TreeMotif from '../components/TreeMotif.astro';
 import CtaBand from '../components/CtaBand.astro';
 import Faq from '../components/Faq.astro';
 import { site } from '../data/site';
@@ -16,6 +17,7 @@ const featured = training.slice(0, 6);
 >
   <!-- HERO -->
   <section class="hero" aria-labelledby="hero-h1">
+    <div class="hero-motif" aria-hidden="true"><TreeMotif /></div>
     <div class="container hero-grid">
       <div class="hero-text">
         <div class="eyebrow hero-eyebrow">Leadership coaching &amp; workplace training</div>
@@ -177,7 +179,11 @@ const featured = training.slice(0, 6);
       radial-gradient(ellipse 60% 70% at 95% 8%, rgba(200,217,194,.55), transparent),
       var(--cream);
   }
-  .hero-grid { display: grid; grid-template-columns: minmax(0,1.06fr) minmax(0,.94fr); gap: 56px; align-items: center; }
+  .hero-motif {
+    position: absolute; top: -40px; right: -30px; width: clamp(280px, 34vw, 460px);
+    color: var(--fern); opacity: .10; pointer-events: none; z-index: 0;
+  }
+  .hero-grid { display: grid; grid-template-columns: minmax(0,1.06fr) minmax(0,.94fr); gap: 56px; align-items: center; position: relative; z-index: 1; }
   .hero-text { max-width: 580px; }
   .hero-eyebrow { margin-bottom: 24px; }
   .hero-h1 { margin-bottom: 20px; }

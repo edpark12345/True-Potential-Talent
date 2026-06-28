@@ -84,6 +84,18 @@ const { title, description, path = Astro.url.pathname } = Astro.props;
         });
       });
 
+      // Stagger fade-up children within grids for a smoother reveal
+      ['.courses-grid', '.course-list', '.paths-grid', '.steps-grid', '.testimonial-grid',
+       '.cred-list', '.values-grid', '.weeks-grid', '.related-grid', '.faq-list'].forEach((sel) => {
+        document.querySelectorAll(sel).forEach((parent) => {
+          Array.from(parent.children).forEach((child, i) => {
+            if (child.classList.contains('fade-up')) {
+              (child as HTMLElement).style.transitionDelay = `${Math.min(i * 0.07, 0.42)}s`;
+            }
+          });
+        });
+      });
+
       // Fade-up on scroll
       const els = document.querySelectorAll('.fade-up');
       if ('IntersectionObserver' in window) {

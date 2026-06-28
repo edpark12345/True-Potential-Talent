@@ -1,0 +1,65 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import PageHero from '../../components/PageHero.astro';
+import CtaBand from '../../components/CtaBand.astro';
+
+const options = [
+  {
+    href: '/coaching/8-week-course',
+    title: '8-Week Coaching Programme',
+    desc: 'A structured, transformational journey through confidence, communication, resilience and leadership — eight weekly 1:1 sessions built around you.',
+    meta: 'Best for deep, lasting change',
+  },
+  {
+    href: '/coaching/individual-coaching-sessions',
+    title: 'Individual Coaching Sessions',
+    desc: 'Flexible, focused one-to-one sessions for when you need them — work through a challenge, prepare for a big moment, or get regular thinking space.',
+    meta: 'Best for flexible, on-demand support',
+  },
+  {
+    href: '/coaching/14-day-guide',
+    title: 'Free 14-Day Guide',
+    desc: 'A gentle, practical taster — one small confidence-building step a day for two weeks. Completely free, no obligation.',
+    meta: 'Best for getting started today',
+  },
+];
+---
+<BaseLayout
+  title="Coaching"
+  description="One-to-one coaching with Lynne Robson — from a free 14-day guide to flexible sessions and a transformational 8-week programme. Grow with confidence."
+  path="/coaching"
+>
+  <PageHero kicker="Coaching" title="One-to-one coaching, built around you." lede="Whether you want a gentle start or a deep, structured journey, there’s a way to begin. Every path is warm, practical and entirely focused on your growth.">
+    <div class="btn-row" style="margin-top:24px">
+      <a class="btn btn-forest btn-arrow" href="/coaching/14-day-guide">Start free</a>
+      <a class="btn btn-outline" href="/contact">Book a discovery call</a>
+    </div>
+  </PageHero>
+
+  <section class="section">
+    <div class="container">
+      <div class="section-head"><span class="kicker">Choose your start</span><h2>Three ways to work together</h2></div>
+      <div class="coach-grid">
+        {options.map((o) => (
+          <a href={o.href} class="card coach-card fade-up">
+            <span class="coach-meta">{o.meta}</span>
+            <h3>{o.title}</h3>
+            <p>{o.desc}</p>
+            <span class="path-link btn-arrow">Learn more</span>
+          </a>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <CtaBand title="Not sure which is right for you?" text="Book a relaxed discovery call and we’ll find the best starting point together." />
+</BaseLayout>
+
+<style>
+  .coach-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 20px; }
+  .coach-card { display: flex; flex-direction: column; }
+  .coach-card p { color: var(--muted); flex-grow: 1; }
+  .coach-meta { font-size: .72rem; letter-spacing: .1em; text-transform: uppercase; color: var(--gold); font-weight: 700; margin-bottom: 8px; display: block; }
+  .path-link { color: var(--gold); font-weight: 600; font-size: .88rem; display: inline-flex; gap: 6px; margin-top: 12px; }
+  @media (max-width: 880px) { .coach-grid { grid-template-columns: 1fr; } }
+</style>

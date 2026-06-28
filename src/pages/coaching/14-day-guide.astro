@@ -29,13 +29,13 @@ const SIGNUP_ENDPOINT = 'https://formspree.io/f/your-form-id';
         <p style="color:var(--muted);font-size:.9rem;margin-bottom:6px">Enter your details and I’ll send day one straight away.</p>
         <div class="field">
           <label for="g-name">First name</label>
-          <input id="g-name" name="name" type="text" autocomplete="given-name" required />
-          <span class="error" data-error-for="name"></span>
+          <input id="g-name" name="name" type="text" autocomplete="given-name" required aria-describedby="gerr-name" />
+          <span class="error" id="gerr-name" data-error-for="name"></span>
         </div>
         <div class="field">
           <label for="g-email">Email</label>
-          <input id="g-email" name="email" type="email" autocomplete="email" required />
-          <span class="error" data-error-for="email"></span>
+          <input id="g-email" name="email" type="email" autocomplete="email" required aria-describedby="gerr-email" />
+          <span class="error" id="gerr-email" data-error-for="email"></span>
         </div>
         <button type="submit" class="btn btn-gold btn-lg btn-arrow" data-submit style="width:100%;justify-content:center">Send me the guide</button>
         <p class="form-status" data-status role="status" aria-live="polite"></p>
@@ -54,10 +54,12 @@ const SIGNUP_ENDPOINT = 'https://formspree.io/f/your-form-id';
     const showError = (name: string, msg: string) => {
       const el = form.querySelector(`[data-error-for="${name}"]`);
       if (el) el.textContent = msg;
+      form.querySelector(`[name="${name}"]`)?.setAttribute('aria-invalid', 'true');
     };
     form.addEventListener('submit', async (e) => {
       e.preventDefault();
       form.querySelectorAll('.error').forEach((el) => (el.textContent = ''));
+      form.querySelectorAll('[aria-invalid]').forEach((el) => el.removeAttribute('aria-invalid'));
       status.className = 'form-status';
       status.textContent = '';
       const name = (form.elements.namedItem('name') as HTMLInputElement).value.trim();
