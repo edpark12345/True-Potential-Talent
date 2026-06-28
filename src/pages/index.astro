@@ -70,7 +70,7 @@ const featured = training.slice(0, 6);
   <section class="section" aria-labelledby="about-h">
     <div class="container about-grid">
       <div class="about-image-wrap fade-up">
-        <div class="about-photo"><Logo size={120} light /></div>
+        <div class="about-photo"><img src="/lynne.jpg" alt="Lynne Robson, founder of True Potential Training" width="600" height="800" loading="lazy" /></div>
         <div class="about-badge"><strong>20+</strong><span>Years</span></div>
       </div>
       <div class="fade-up">
@@ -230,6 +230,7 @@ const featured = training.slice(0, 6);
     border-radius: var(--r-lg); aspect-ratio: 3/4; overflow: hidden; box-shadow: var(--sh);
     background: linear-gradient(160deg, var(--forest-2), #0e2018); display: grid; place-items: center;
   }
+  .about-photo img { width: 100%; height: 100%; object-fit: cover; object-position: 50% 30%; }
   .about-badge {
     position: absolute; bottom: -16px; right: -16px; width: 110px; height: 110px; border-radius: 50%;
     background: var(--gold); display: grid; place-items: center; text-align: center;

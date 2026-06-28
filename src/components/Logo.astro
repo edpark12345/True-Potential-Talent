@@ -1,33 +1,24 @@
 ---
+// Brand logo — the original True Potential Training tree mark.
+// `light` adds a white chip so the mark stays crisp on dark backgrounds.
 interface Props {
   size?: number;
   light?: boolean;
 }
 const { size = 44, light = false } = Astro.props;
-const stroke = light ? '#d4a84b' : '#1e4534';
-const accent = light ? '#e8f0e5' : '#3d7a5c';
 ---
-<svg
-  width={size}
-  height={size}
-  viewBox="0 0 64 64"
-  fill="none"
-  role="img"
-  aria-label="True Potential Training"
-  xmlns="http://www.w3.org/2000/svg"
->
-  <circle cx="32" cy="32" r="30" stroke={stroke} stroke-width="1.5" opacity="0.5" />
-  <!-- trunk -->
-  <path d="M32 52 V30" stroke={stroke} stroke-width="2.4" stroke-linecap="round" />
-  <!-- roots -->
-  <path d="M32 52 q-6 2 -10 6 M32 52 q6 2 10 6" stroke={stroke} stroke-width="1.6" stroke-linecap="round" />
-  <!-- canopy branches -->
-  <path d="M32 34 q-10 -4 -14 -14 M32 34 q10 -4 14 -14 M32 30 q-7 -6 -8 -16 M32 30 q7 -6 8 -16 M32 28 V12"
-    stroke={accent} stroke-width="1.8" stroke-linecap="round" />
-  <!-- leaves -->
-  <circle cx="18" cy="20" r="3.2" fill={accent} />
-  <circle cx="46" cy="20" r="3.2" fill={accent} />
-  <circle cx="24" cy="14" r="2.8" fill={stroke} />
-  <circle cx="40" cy="14" r="2.8" fill={stroke} />
-  <circle cx="32" cy="11" r="3.4" fill={accent} />
-</svg>
+<span class:list={['logo-mark', { chip: light }]} style={`--s:${size}px`}>
+  <img src="/logo.png" alt="" width={size} height={size} loading="eager" decoding="async" />
+</span>
+
+<style>
+  .logo-mark { display: inline-grid; place-items: center; flex-shrink: 0; }
+  .logo-mark img { width: var(--s); height: var(--s); object-fit: contain; display: block; }
+  .logo-mark.chip {
+    background: var(--cream);
+    border-radius: 50%;
+    padding: calc(var(--s) * 0.12);
+    box-shadow: 0 4px 14px rgba(0,0,0,.18);
+  }
+  .logo-mark.chip img { width: calc(var(--s) * 0.84); height: calc(var(--s) * 0.84); }
+</style>
